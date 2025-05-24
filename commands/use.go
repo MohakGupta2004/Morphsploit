@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-func Use(args []string) error {
+func Use(args []string) (error, string) {
 	pathName := strings.Split(args[0], "/")
 	err, moduleName := extractModule(pathName)
 	if err != nil {
-		return err
+		return err, ""
 	}
-	println(moduleName)
-	return nil
+
+	return nil, moduleName
 }
 
 func extractModule(path []string) (error, string) {

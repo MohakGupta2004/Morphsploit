@@ -1,7 +1,19 @@
 package commands
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/MohakGupta2004/Morphsploit/module/csrf"
+)
 
 func Opt(moduleName string) {
-	fmt.Print(moduleName)
+	moduleName = strings.TrimSpace(moduleName) // ← Clean input
+	fmt.Println("--------------Showing options regarding to the module--------------")
+	switch moduleName {
+	case "csrf":
+		csrf.Options()
+	default:
+		fmt.Println("No options found")
+	}
 }
