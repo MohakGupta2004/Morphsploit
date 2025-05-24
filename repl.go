@@ -45,6 +45,8 @@ func startShell() {
 		switch command {
 		case "echo":
 			commands.Echo(commandArgs)
+		case "clear":
+			readline.ClearScreen(rl)
 		case "exit":
 			if useMode.auth == true {
 				useMode.auth = false
@@ -78,7 +80,21 @@ func startShell() {
 			}
 			commands.Opt(useMode.module)
 		case "set":
-
+			if useMode.auth == false {
+				fmt.Println("Module not specified")
+				break
+			}
+			if len(commandArgs) == 0 {
+				fmt.Println("Usage: set option 1/2/3/4....")
+				break
+			}
+			if commandArgs[0] != "option" {
+				break
+			}
+			if commandArgs[1] == "" {
+				break
+			}
+			commands.Set(commandArgs[1], useMode.module)
 		default:
 			fmt.Println("Unknown Command")
 		}
