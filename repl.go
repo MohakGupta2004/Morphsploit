@@ -95,6 +95,8 @@ func startShell() {
 				break
 			}
 			commands.Set(commandArgs[1], useMode.module)
+		case "help":
+			commands.Help()
 		default:
 			fmt.Println("Unknown Command")
 		}
