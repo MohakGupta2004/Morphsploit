@@ -14,7 +14,10 @@ func NoDefense() {
 	payloadValue := "attacker@email.com"
 	fmt.Printf("Enter the url: ")
 	fmt.Scanf("%s", &url)
-
+	if err := utils.IsValidURL(url); err != true {
+		fmt.Println("Invalid URL format")
+		return
+	}
 	fmt.Printf("Exploit endpoint (provide in \"/change-email\" in this format): ")
 	fmt.Scanf("%s", &endpoint)
 	validEndpoint := utils.EndpointSyntaxCheck(endpoint)

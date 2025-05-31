@@ -9,8 +9,10 @@ import (
 )
 
 type UseMode struct {
-	auth   bool
-	module string
+	auth     bool
+	module   string
+	run      bool
+	selected string
 }
 
 func startShell() {
@@ -23,6 +25,7 @@ func startShell() {
 	useMode := UseMode{
 		auth:   false,
 		module: "",
+		run:    false,
 	}
 	for {
 		line, err := rl.Readline()
@@ -94,9 +97,15 @@ func startShell() {
 			if commandArgs[1] == "" {
 				break
 			}
-			commands.Set(commandArgs[1], useMode.module)
+			useMode.selected = commandArgs[1]
+			commands.Set(useMode.selected, useMode.module)
 		case "help":
 			commands.Help()
+		case "run":
+			err := commands.Run(useMode.module)
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
 		default:
 			fmt.Println("Unknown Command")
 		}
